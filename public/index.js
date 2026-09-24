@@ -58,7 +58,14 @@ imageForm.addEventListener('submit', async (e) => {
 
   e.preventDefault();
 
-  submitInformation(fileInput, imageForm);
+  let systemSubmission = "public/UI/Pictures/Systems/" + imageForm.systemType.value + ".jpg";
+  let glassSubmission = "public/UI/Pictures/Glass/" + imageForm.glassType.value + ".png";
+  let handleSubmission = "public/UI/Pictures/Pull Handles/" + imageForm.pullHandle.value + ".jpg";
+  let doorHingeSubmission = "public/UI/Pictures/Door Hinges/" + imageForm.doorHinge.value + ".jpg";
+  let bracketSubmission = "public/UI/Pictures/Brackets/" + imageForm.bracketType.value + ".jpg";
+  let finishSubmission = "public/UI/Pictures/Finishes/" + imageForm.hardwareFinish.value + ".png";
+
+  submitInformation(fileInput, imageForm, systemSubmission, glassSubmission, handleSubmission, doorHingeSubmission, bracketSubmission, finishSubmission);
 });
 
 
@@ -292,7 +299,14 @@ variationForm.addEventListener('submit', async (e) => {
   myForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    submitInformation(myInput, myForm);
+    let systemSubmission = "public/UI/Pictures/Systems/" + myForm.systemType.value + ".jpg";
+    let glassSubmission = "public/UI/Pictures/Glass/" + myForm.glassType.value + ".png";
+    let handleSubmission = "public/UI/Pictures/Pull Handles/" + myForm.pullHandle.value + ".jpg";
+    let doorHingeSubmission = "public/UI/Pictures/Door Hinges/" + myForm.doorHinge.value + ".jpg";
+    let bracketSubmission = "public/UI/Pictures/Brackets/" + myForm.bracketType.value + ".jpg";
+    let finishSubmission = "public/UI/Pictures/Finishes/" + myForm.hardwareFinish.value + ".png";
+
+    submitInformation(myInput, myForm, systemSubmission, glassSubmission, handleSubmission, doorHingeSubmission, bracketSubmission, finishSubmission);
   });
 
 
@@ -560,7 +574,7 @@ function showSlides(n) {
 //Takes in the file input and converts it to base64 to give to the AI
 //
 //-----------------------------------
-async function submitInformation(fileInput, form) {
+async function submitInformation(fileInput, form, sImg, gImg, pHImg, dHImg, bImg, hFImg) {
 
   //For each file submitted go through and convert the Image to base64 and send it off to the AI
   for (let i = 0; i < fileInput.files.length; i++) {
@@ -571,7 +585,7 @@ async function submitInformation(fileInput, form) {
       let res = await fetch('/openai/answer', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ system: form.systemType.value, glass: form.glassType.value, handle: form.pullHandle.value, hinge: form.doorHinge.value, bracket: form.bracketType.value, finish: form.hardwareFinish.value, image: base64, imageIndex: currentImageIndex })
+        body: JSON.stringify({ system: form.systemType.value, systemImg: sImg, glass: form.glassType.value, glassImg: gImg, handle: form.pullHandle.value, handleImg: pHImg, hinge: form.doorHinge.value, hingeImg: dHImg, bracket: form.bracketType.value, bracketImg: bImg, finish: form.hardwareFinish.value, hardwareFinishImg: hFImg, image: base64, imageIndex: currentImageIndex })
       });
 
       let data = await res.json();
