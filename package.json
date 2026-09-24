@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "build": "^0.1.4",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "openai": "^7.4.0"
